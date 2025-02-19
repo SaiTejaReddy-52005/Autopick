@@ -8,22 +8,31 @@ interface CarCardProps {
 }
 
 export function CarCard({ car }: CarCardProps) {
+  const price = parseFloat(car.price).toLocaleString('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  });
+
   return (
-    <Card>
+    <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300">
       <CardHeader className="p-0">
-        <div className="aspect-video relative overflow-hidden rounded-t-lg">
+        <div className="aspect-video relative overflow-hidden">
           <img
             src={car.image}
             alt={`${car.brand} ${car.name}`}
-            className="object-cover w-full h-full"
+            className="object-cover w-full h-full transform hover:scale-105 transition-transform duration-300"
           />
         </div>
       </CardHeader>
       <CardContent className="pt-6">
-        <CardTitle className="flex justify-between items-start mb-4">
-          <div>
-            <h3 className="text-xl font-bold">{car.brand} {car.name}</h3>
-            <p className="text-2xl font-bold text-primary">${car.price.toLocaleString()}</p>
+        <CardTitle className="flex flex-col gap-2 mb-4">
+          <div className="flex justify-between items-start">
+            <div>
+              <h3 className="text-xl font-bold">{car.brand} {car.name}</h3>
+              <p className="text-2xl font-bold text-primary">{price}</p>
+            </div>
           </div>
         </CardTitle>
 
