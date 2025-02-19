@@ -8,9 +8,9 @@ interface CarCardProps {
 }
 
 export function CarCard({ car }: CarCardProps) {
-  const price = parseFloat(car.price).toLocaleString('en-US', {
+  const price = parseFloat(car.price).toLocaleString('en-IN', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'INR',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   });

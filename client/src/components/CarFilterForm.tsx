@@ -17,12 +17,21 @@ export function CarFilterForm({ onFilter }: CarFilterFormProps) {
   const form = useForm<CarFilter>({
     resolver: zodResolver(carFilterSchema),
     defaultValues: {
-      minPrice: 0,
-      maxPrice: 100000,
+      minPrice: 1000000, // 10 Lakhs
+      maxPrice: 2000000, // 20 Lakhs
       seatingCapacity: 5,
       features: []
     }
   });
+
+  const formatPrice = (value: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(value);
+  };
 
   return (
     <Card>
@@ -37,10 +46,18 @@ export function CarFilterForm({ onFilter }: CarFilterFormProps) {
               name="minPrice"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Minimum Price ($)</FormLabel>
+                  <FormLabel>Minimum Price</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                    <Input 
+                      type="number" 
+                      {...field} 
+                      onChange={e => field.onChange(Number(e.target.value))}
+                      placeholder="Enter minimum price"
+                    />
                   </FormControl>
+                  <p className="text-sm text-muted-foreground">
+                    Current: {formatPrice(field.value)}
+                  </p>
                 </FormItem>
               )}
             />
@@ -50,10 +67,18 @@ export function CarFilterForm({ onFilter }: CarFilterFormProps) {
               name="maxPrice"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Maximum Price ($)</FormLabel>
+                  <FormLabel>Maximum Price</FormLabel>
                   <FormControl>
-                    <Input type="number" {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                    <Input 
+                      type="number" 
+                      {...field} 
+                      onChange={e => field.onChange(Number(e.target.value))}
+                      placeholder="Enter maximum price"
+                    />
                   </FormControl>
+                  <p className="text-sm text-muted-foreground">
+                    Current: {formatPrice(field.value)}
+                  </p>
                 </FormItem>
               )}
             />
@@ -65,7 +90,13 @@ export function CarFilterForm({ onFilter }: CarFilterFormProps) {
                 <FormItem>
                   <FormLabel>Seating Capacity</FormLabel>
                   <FormControl>
-                    <Input type="number" min={2} max={9} {...field} onChange={e => field.onChange(Number(e.target.value))} />
+                    <Input 
+                      type="number" 
+                      min={2} 
+                      max={9} 
+                      {...field} 
+                      onChange={e => field.onChange(Number(e.target.value))}
+                    />
                   </FormControl>
                 </FormItem>
               )}

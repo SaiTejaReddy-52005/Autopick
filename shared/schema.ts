@@ -6,7 +6,7 @@ export const cars = pgTable("cars", {
   id: serial("id").primaryKey(),
   name: text("name").notNull(),
   brand: text("brand").notNull(),
-  price: decimal("price", { precision: 10, scale: 2 }).notNull(),
+  price: decimal("price", { precision: 12, scale: 2 }).notNull(), // Increased precision for larger rupee values
   seatingCapacity: integer("seating_capacity").notNull(),
   image: text("image").notNull(),
   officialLink: text("official_link").notNull(),
